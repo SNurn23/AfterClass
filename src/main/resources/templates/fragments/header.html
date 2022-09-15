@@ -1,0 +1,52 @@
+<header th :fragment="header"  >
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a th:href="@{/auth/home}" class="navbar-brand" >AFTERCLASS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                    aria-controls="menu" aria-expanded="false" aria-label="Show / Hide Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/members/MyProfile}">Profile</a>
+<!--arreglar-->
+                    <li class="nav-item">
+                        <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/studyGroups/Groups}">Groups</a>
+                    </li>
+
+                    <li  class="nav-item dropdown"><a sec:authorize="hasRole('ADMIN')" class="nav-link dropdown-toggle"  id="universityDropdown"
+                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">University</a>
+                        <ul class="dropdown-menu" aria-labelledby="universityDropdown">
+                            <li><a class="dropdown-item" th:href="@{/universities/form}">Add univerisity</a></li>
+                            <li><a class="dropdown-item" th:href="@{/universities}">View universities</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown"><a sec:authorize="hasRole('ADMIN')" class="nav-link dropdown-toggle"  id="careerDropdown"
+                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">Career</a>
+                        <ul class="dropdown-menu" aria-labelledby="careerDropdown">
+                            <li><a class="dropdown-item" th:href="@{/careers/form}">Add career</a></li>
+                            <li><a class="dropdown-item" th:href="@{/careers}">View careers</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown"><a sec:authorize="hasRole('ADMIN')" class="nav-link dropdown-toggle"  id="subjectDropdown"
+                                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">Subject</a>
+                        <ul class="dropdown-menu" aria-labelledby="subjectDropdown">
+                            <li><a class="dropdown-item" th:href="@{/subjects/form}">Add Subject</a></li>
+                            <li><a class="dropdown-item" th:href="@{/subjects}">View Subjects</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+                <a class="btn btn-warning" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+

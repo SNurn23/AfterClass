@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <form th:action="@{/studyGroups/MyGroup/posts/__${action}__}" th:object="${post}" method="post" autocomplete="off"
+                      class="needs-validation" enctype="multipart/form-data" novalidate>
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{tittle}" id="tittle" class="form-control" required>
+                        <label for="tittle">Tittle</label>
+                        <div class="invalid-feedback">Tittle is required</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{content}" id="content" class="form-control">
+                        <label for="content">Content</label>
+                    </div>
+
+                    <div th:if="${action} == 'create' " class="mb-3">
+
+                        <label for="image">Upload image Profile</label>
+                        <input class="form-control mt-2" type="file" name="image" accept="image/*">
+
+
+                    </div>
+
+                    <button th:text="${action == 'create' ? 'Save' : 'Update'}" type="submit" class="btn btn-dark"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/validation.js}"></script>
+</main>
+</body>
+</html>

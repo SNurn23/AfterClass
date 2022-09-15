@@ -1,0 +1,79 @@
+body{
+    background-color: white;
+}
+
+.carousel-inner{
+    max-height:39rem;
+}
+
+
+#frontTeam{
+    background-color: black;
+    background-image: url(/img/wallpaper-team.png);
+}
+
+/*=========================CONTACTOS BACKGROUND================================*/
+
+#bg-contactos{
+    position:relative;
+    top: -130px;
+}
+
+ #seccion-contacto{
+    background-color: #1b2a4e;
+    min-height:500px;
+    position:relative;
+}
+
+/*=========================CONTACTOS FORMULARIO================================*/
+
+#contenedor-formulario{
+    position:absolute;
+    top:30%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background: #fbfafa;
+    border-radius:5px;
+
+}
+
+#titulo-formulario {
+    color: #3f3f3f;
+}
+
+
+footer {
+    background: #1b2a4e;
+    min-height: 100px;;
+}
+footer p{
+    color:#f3f3f3;
+    text-align:center;
+}
+#iconos  i {
+    font-size: 26px;
+    padding: 0 8px;
+    color:#f3f3f3;
+}
+
+/*
+MEDIA QUERIES PANTALLA SM
+*/
+@media(max-width: 768px){
+    #intro #team{
+        width:90% !important;
+    }
+
+    .utilidades-fila{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/*MEDIA QUERIES PANTALLA EXTRA-SM*/
+@media(max-width: 576px){
+    .icono-wrap{
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+}

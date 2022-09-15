@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+
+<body id="bodytable">
+
+<header th:replace="fragments/header :: header"></header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <div class="content social-timeline">
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="social-wallpaper">
+                                    <img class="img-fluid" id="imgportada"
+                                         th:src="${registerDTO.cover_img} ? @{/profileMember/__${registerDTO.cover_img}__} : @{/profileMember/default_cover.jpg}">
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-xs-12">
+
+                                <div class="card" style="width: 18rem;">
+                                    <img th:src="${registerDTO.profile_img} ? @{/profileMember/__${registerDTO.profile_img}__} : @{/profileMember/default_profile.jpg}"
+                                         class="card-img-top" >
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${registerDTO.user_name}"></h5>
+                                        <p class="card-text" th:text="${registerDTO.full_name}"></p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" th:text="${registerDTO.email}"></li>
+                                        <li class="list-group-item" th:text="${registerDTO.gender}"></li>
+                                        <li class="list-group-item" th:text="${registerDTO.occupation}"></li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-9 col-lg-8 col-md-8 col-xs-12 ">
+
+                                <div class="card">
+                                    <div class="container card-header">
+                                        <div class="row">
+
+                                            <div class="col-6">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="aboutme-tab" data-bs-toggle="tab"
+                                                                data-bs-target="#aboutme" type="button" role="tab"
+                                                                aria-controls="aboutme" aria-selected="false">About Me
+                                                        </button>
+                                                    </li>
+
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="mygroups-tab"
+                                                                data-bs-toggle="tab"
+                                                                data-bs-target="#mygroups" type="button" role="tab"
+                                                                aria-controls="mygroups" aria-selected="true">My Groups
+                                                        </button>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="d-flex  justify-content-end" th:if="${action2 == 'Update'}">
+                                                    <a class="btn btn-primary waves-effect waves-light m-r-10"
+                                                       th:href="@{/members/MyProfile/edit}">Update</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="aboutme" role="tabpanel"
+                                             aria-labelledby="aboutme-tab" tabindex="0">
+
+                                            <div class="card social-tabs">
+                                                <div class="card-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+
+                                                            <li class="list-group-item"
+                                                                th:text="${registerDTO.description}"></li>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="tab-pane" id="mygroups" role="tabpanel"
+                                             aria-labelledby="mygroups-tab"
+                                             tabindex="0">
+
+                                            <div class="container" id="sgroups">
+                                                <div class="row mt-5">
+                                                    <div class="col">
+                                                        <div th:if="${studyGroups.isEmpty()}"
+                                                             class="alert alert-info alert-dismissible fade show"
+                                                             role="alert">
+                                                            <h4>You must enter studyGroups.</h4>
+                                                            <a th:href="@{/studyGroups/form}" class="alert-link">Create
+                                                                studyGroups.</a>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <div th:unless="${studyGroups.isEmpty()}"
+                                                             class="table-responsive">
+                                                            <table class="table table-hover table-bordered">
+                                                                <thead>
+                                                                <tr class="table-dark">
+                                                                    <th>Name</th>
+                                                                    <th>Subject</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="studyGroup : ${studyGroups}">
+                                                                    <td th:text="${studyGroup.name}"></td>
+                                                                    <td th:text="${studyGroup.subject.name}"></td>
+
+                                                                    <div th:if="${action == 'go'}">
+                                                                        <td><a class="btn btn-warning"
+                                                                               th:href="@{/studyGroups/MyGroup/__${studyGroup.id}__}">Enter</a>
+                                                                        </td>
+                                                                    </div>
+
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+                            <link rel="stylesheet" th:href="@{/css/styles.css}">
+                            <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+                            <script th:src="@{/js/validation.js}"></script>
+
+
+</body>
+</html>

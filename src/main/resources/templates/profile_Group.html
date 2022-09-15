@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body id="bodytable">
+<header th:replace="fragments/header :: header"></header>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <div class="content social-timeline">
+                    <div class="">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="social-wallpaper">
+                                    <img class="img-fluid" id="imgportada"
+                                         th:src="${studyGroup.cover_img} ? @{/profileGroup/__${studyGroup.cover_img}__} : @{/profileGroup/default_cover.jpg}">
+                                    <div class="profile-hvr">
+                                        <i class="icofont icofont-ui-edit p-r-10"></i>
+                                        <i class="icofont icofont-ui-delete"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-xs-12">
+
+                                <div class="card" style="width: 18rem;">
+                                    <img th:src="${studyGroup.profile_img} ? @{/profileGroup/__${studyGroup.profile_img}__} : @{/profileGroup/default_profile.jpg}"
+                                         class="card-img-top">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${studyGroup.name}"></h5>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" th:text="${studyGroup.limit_people}">Limit people:
+                                        </li>
+                                        <li class="list-group-item" th:text="${studyGroup.creation_date}">Creation
+                                            date:
+                                        </li>
+                                        <li class="list-group-item" th:text="${studyGroup.description}">Description
+                                        </li>
+                                        <li class="list-group-item" th:text="${studyGroup.link}">Link:</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-8 col-md-8 col-xs-12 ">
+
+                                <div class="card">
+                                    <div class="container card-header">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="posts-tab"
+                                                                data-bs-toggle="tab"
+                                                                data-bs-target="#posts" type="button" role="tab"
+                                                                aria-controls="posts" aria-selected="true">Posts
+                                                        </button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="members-tab" data-bs-toggle="tab"
+                                                                data-bs-target="#members" type="button" role="tab"
+                                                                aria-controls="members" aria-selected="false">Members
+                                                        </button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="meetings-tab" data-bs-toggle="tab"
+                                                                data-bs-target="#meetings" type="button" role="tab"
+                                                                aria-controls="meetings" aria-selected="false">Meetings
+                                                        </button>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="btn-group d-flex  justify-content-end" role="group"
+                                                     aria-label="Basic example">
+
+                                                    <div th:if="${action2 == 'Update'}">
+
+                                                        <a class="btn btn-primary waves-effect waves-light m-r-10"
+                                                           th:href="@{/studyGroups/form/__${studyGroup.id}__}">Update</a>
+
+                                                    </div>
+
+                                                    <div th:if="${action == 'exit'}">
+                                                        <form th:action="@{/studyGroups/exit/__${studyGroup.id}__}"
+                                                              method="POST">
+                                                            <button type="submit" class="btn btn-danger">Exit</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <div th:if="${action == 'Delete'}">
+                                                        <form th:action="@{/studyGroups/delete/__${studyGroup.id}__}"
+                                                              method="POST">
+                                                            <button type="submit" class="btn btn-danger btn-delete">
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="posts" role="tabpanel"
+                                             aria-labelledby="posts-tab" tabindex="0">
+
+                                            <div class="card social-tabs">
+                                                <div class="card-body">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h3>Posts</h3>
+                                                            <form th:action="@{/studyGroups/create_post}"
+                                                                  th:object="${post}" method="post"
+                                                                  autocomplete="off"
+                                                                  class="needs-validation" enctype="multipart/form-data"
+                                                                  novalidate>
+                                                                <input type="hidden" th:field="*{id}">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text" th:field="*{tittle}" id="tittle"
+                                                                           class="form-control" required>
+                                                                    <label for="tittle">Tittle</label>
+                                                                    <div class="invalid-feedback">Tittle is required
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text" th:field="*{content}"
+                                                                           id="content" class="form-control">
+                                                                    <label for="content">Content</label>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="image3">Upload image </label>
+                                                                    <input class="form-control mt-2" type="file"
+                                                                           name="image3" accept="image/*">
+                                                                </div>
+
+                                                                <button th:text="Save" type="submit"
+                                                                        class="btn btn-dark">Save
+                                                                </button>
+
+                                                            </form>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <!--no va a poder editar post-->
+                                                    <div th:unless="${posts.isEmpty()}" id="post">
+                                                        <div th:each="post : ${posts}" class="card">
+                                                            <div class="card-body">
+                                                                <div class="chat-header f-w-600"><small
+                                                                        class="text-muted"
+                                                                        th:text="${post.member.full_name}"></small>
+                                                                </div>
+                                                                <h5 class="card-title" th:text="${post.tittle}"></h5>
+
+                                                                <p class="card-text" th:text="${post.content}"></p>
+
+
+                                                            </div>
+
+                                                            <div th:if="${post.file != null}">
+
+                                                                <img th:src="@{/filePosts/__${post.file}__}"
+                                                                     class="card-img-bottom" id="imgpost" alt="...">
+                                                            </div>
+                                                            <div th:if="${post.member.id} == ${member}">
+
+                                                                <form th:action="@{/studyGroups/MyGroup/posts/delete/__${post.id}__}"
+                                                                      method="POST">
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger btn-delete">Delete
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="tab-pane" id="members" role="tabpanel" aria-labelledby="members-tab"
+                                             tabindex="0">
+
+                                            <div class="container">
+                                                <div class="row mt-5">
+                                                    <div class="col">
+                                                        <div th:unless="${users.isEmpty()}" class="table-responsive">
+                                                            <table class="table table-hover table-bordered">
+                                                                <thead>
+                                                                <tr class="table-dark">
+                                                                    <th>UserName</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="user : ${users}">
+                                                                    <td th:text="${user.user_name}"></td>
+
+                                                                </tr>
+
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="meetings" role="tabpanel"
+                                             aria-labelledby="meetings-tab" tabindex="0">
+                                            <div class="container">
+                                                <div class="row mt-5">
+                                                    <div class="col">
+                                                        <div th:if="${meetings.isEmpty()}"
+                                                             class="alert alert-info alert-dismissible fade show"
+                                                             role="alert">
+                                                            <h4>You must enter meetings.</h4>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <table class="table table-hover table-bordered">
+                                                            <thead>
+                                                            <tr class="table-dark">
+
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>Date</th>
+                                                                <th>scheduled</th>
+                                                                <th>Link</th>
+                                                                <th>Modify</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="meeting : ${meetings}">
+
+                                                                <td th:text="${meeting.name}"></td>
+                                                                <td th:text="${meeting.description}"></td>
+                                                                <td th:text="${meeting.date}"></td>
+                                                                <td th:text="${meeting.scheduled}"></td>
+                                                                <td>
+                                                                    <a class="btn btn-dark"
+                                                                       th:href="@{${meeting.link}}">Enter
+                                                                        Meeting</a>
+                                                                </td>
+                                                                <td th:if="${meeting.member.id} == ${member}">
+                                                                    <a class="btn btn-warning"
+                                                                       th:href="@{/studyGroups/MyGroup/meetings/form/__${meeting.id}__}">Update</a>
+                                                                    <form th:action="@{/studyGroups/MyGroup/meetings/delete/__${meeting.id}__}"
+                                                                          method="POST">
+                                                                        <button type="submit"
+                                                                                class="btn btn-danger btn-delete">
+                                                                            Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <a th:href="@{/studyGroups/MyGroup/meetings/form}"
+                                                           class="btn btn-dark">Add Meeting</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+                            <script th:src="@{/js/validation.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body id="bodytable">
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <div th:if="${exception}" th:text="${exception}" class="alert alert-danger" role="alert"></div>
+                <form th:action="@{/studyGroups/MyGroup/meetings/__${action}__}" th:object="${meeting}" method="post" autocomplete="off"
+                      class="needs-validation" novalidate>
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{name}" id="name" class="form-control" required>
+                        <label for="name">Name of the meeting</label>
+                        <div class="invalid-feedback">Name is required</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{description}" id="description" class="form-control">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" th:field="*{date}" id="date" class="form-control" required>
+                        <label for="date">Date of the meeting</label>
+                        <div class="invalid-feedback">Date is required</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="time" th:field="*{scheduled}" id="scheduled" class="form-control" required>
+                        <label for="scheduled">Scheduled of the meeting</label>
+                        <div class="invalid-feedback">Scheduled is required</div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="url" th:field="*{link}" id="link" class="form-control" required>
+                            <label for="link">Link of the meeting</label>
+                    </div>
+                    <button th:text="${action == 'create' ? 'Save' : 'Update'}" type="submit" class="btn btn-dark"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/validation.js}"></script>
+</main>
+</body>
+</html>

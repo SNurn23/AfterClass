@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body id="bodytable">
+
+<header th:replace="fragments/auth-header :: header"></header>
+
+<main id="main">
+    <div class="container p-5">
+        <div class="row mt-5">
+            <div class="col-md-4 mx-auto px-0">
+                <div th:if="${exception}" th:text="${exception}" class="alert alert-danger shadow text-center"></div>
+
+                <div class="card text-center shadow">
+                    <div class="card-header">
+                        <h3>Sign up</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/auth/register}" th:object="${registerDto}" method="post" autocomplete="off"
+                              class="needs-validation mb-4" novalidate>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" th:field="*{user_name}" id="user_name" class="form-control"
+                                       required>
+                                <label for="user_name">Username</label>
+                                <div class="invalid-feedback">Username is required</div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" th:field="*{full_name}" id="full_name" class="form-control"
+                                required>
+                                <label for="full_name">Full name</label>
+                                 <div class="invalid-feedback">Full Name is required</div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" th:field="*{email}" id="email" class="form-control"
+                                       required>
+                                <label for="email">Email</label>
+                                <div class="invalid-feedback">Email is required</div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="password" th:field="*{password}" id="password" class="form-control"
+                                        required>
+                                <label for="password">Password</label>
+                                <div class="invalid-feedback">Password is required</div>
+                            </div>
+                        <div th:if="${#lists.size(users)} != 0">
+                            <div>
+                                <p>Gender: <input type="radio" name="gender" th:field="*{gender}" th:value="M"> Masculine <input type="radio" name="gender" th:field="*{gender}" th:value="F" >Femenine  <input type="radio" name="gender" th:field="*{gender}" th:value="O" > Other </p>
+<!--                                arreglar boton-->
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select th:field="*{occupation}" id="occupation" class="form-select" aria-label="Select Occupation">
+                                    <option th:value="Student" th:text="Student"></option>
+                                    <option th:value="Mentor" th:text="Mentor"></option>
+                                    <option th:value="Teacher" th:text="Teacher"></option>
+                                </select>
+                                <label for="occupation">Select Occupation</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select th:field="*{university}" id="university" class="form-select" aria-label="Select University"
+                                        required>
+                                    <option th:each="university : ${universities}" th:text="${university.name}"
+                                            th:value="${university.id}"></option>
+                                </select>
+                                <label for="university">Select University</label>
+                                <div class="invalid-feedback">University is required</div>
+                            </div>
+                        </div>
+                            <div class="form-group d-grid gap-2">
+                                <button class="btn btn-success" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
+</body>
+
+</html>
